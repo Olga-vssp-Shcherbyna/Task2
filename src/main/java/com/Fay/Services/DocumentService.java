@@ -19,7 +19,6 @@ class DocumentService {
 
     static Document getTextDocument(String filePath) throws IOException {
         try {
-            //.\src\main\resources\Test
             BufferedReader fr = new BufferedReader(new FileReader(new File(filePath)));
             String line;
             String data = "";
