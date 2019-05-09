@@ -25,15 +25,7 @@ public class Menu {
             case 0:
                 System.exit(0);
             case 1: {
-                System.out.println("Enter filepath please");
-                String filePath = null;
-                try {
-                    filePath = reader.readLine();
-                } catch (IOException e) {
-                    System.out.println("Wrong filepath, please, try again");
-                }
-                Document document = getTextDocument(filePath);
-                findUniqueWord(document);
+                wordInTextFromFile(reader);
                 break;
             }
             case 2: {
@@ -46,15 +38,28 @@ public class Menu {
                 System.out.println("Invalid task number, please, try again");
         }
         menu();
+        reader.close();
     }
 
-    static Document getDocumentFromCommandLine(BufferedReader reader) throws IOException {
+    private static void wordInTextFromFile(BufferedReader reader) throws IOException {
+        System.out.println("Enter filepath please");
+        String filePath = null;
+        try {
+            filePath = reader.readLine();
+        } catch (IOException e) {
+            System.out.println("Wrong filepath, please, try again");
+        }
+        Document document = getTextDocument(filePath);
+        findUniqueWord(document);
+    }
+
+    private static Document getDocumentFromCommandLine(BufferedReader reader) {
         try {
             return getInstance(reader.readLine());
         } catch (IOException e) {
             System.out.println("Invalid input, please, try again");
-            menu();
         }
         return getInstance("");
     }
 }
+

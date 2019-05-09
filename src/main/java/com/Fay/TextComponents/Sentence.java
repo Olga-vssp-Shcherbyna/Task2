@@ -15,3 +15,4 @@ public class Sentence extends Text {
         this.words = words;
     }
 }
+

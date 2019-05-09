@@ -6,8 +6,8 @@ import com.Fay.TextComponents.Word;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static com.Fay.Services.WordService.equalsWithRegExp;
 import static com.Fay.Services.WordService.getWordsFromStrings;
 import static com.Fay.TextComponents.PunctuationMark.INTERMEDIATE_MARKS_REGEX;
 
@@ -29,21 +29,13 @@ class SentenceService {
 
 
     public static boolean findWordInSentence(Sentence sentence, Word word) {
-        int c = 0;
-        for (Word w : sentence.getWords()) {
-            if (equalsWithRegExp(word, w))
-                c++;
-        }
-        return c > 0;
+        return Arrays.stream(sentence.getWords()).anyMatch(word::equals);
     }
 
     static List<Word> compareSentences(Sentence sentence, Sentence s) {
-        List<Word> words = new ArrayList<>();
-        for (Word w : sentence.getWords()) {
-            if (findWordInSentence(s, w)) {
-                words.add(w);
-            }
-        }
-        return words;
+        return Arrays.stream(sentence.getWords())
+                .filter(word -> findWordInSentence(s, word))
+                .collect(Collectors.toList());
     }
 }
+

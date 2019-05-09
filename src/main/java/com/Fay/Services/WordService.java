@@ -2,12 +2,8 @@ package com.Fay.Services;
 
 import com.Fay.TextComponents.Word;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.util.regex.Pattern.compile;
 
 class WordService {
     static Word[] getWordsFromStrings(String[] string) {
@@ -19,16 +15,12 @@ class WordService {
     }
 
     public static String wordArrayToString(List<Word> words) {
-        String[] string = new String[words.size()];
-        for (int i = 0; i < words.size(); i++) {
-            string[i] = words.get(i).getData();
+        List<String> string = new ArrayList<>();
+        for (Word word : words) {
+            string.add(word.getData());
         }
-        return Arrays.toString(string);
+        return string.toString();
     }
 
-    static boolean equalsWithRegExp(Word firstWord, Word secondWord) {
-        Pattern pattern = compile(firstWord.getData().toLowerCase());
-        Matcher m = pattern.matcher(secondWord.getData().toLowerCase());
-        return m.matches();
-    }
 }
+

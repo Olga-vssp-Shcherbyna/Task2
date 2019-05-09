@@ -3,8 +3,6 @@ package com.Fay.Services;
 import com.Fay.TextComponents.Document;
 import com.Fay.TextComponents.Sentence;
 import com.Fay.TextComponents.Word;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,8 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.Fay.Services.DocumentService.getFirstNotEmptySentence;
-import static com.Fay.Services.DocumentService.printUniqueWords;
+import static com.Fay.Services.DocumentService.*;
 import static org.junit.Assert.assertNull;
 
 public class DocumentServiceTest {
@@ -21,7 +18,6 @@ public class DocumentServiceTest {
     private static Document document;
     private static Document doc;
     private static String filepath;
-    private static String filepath2;
 
     @BeforeClass
     public static void setUpClass() throws IOException {
@@ -29,7 +25,7 @@ public class DocumentServiceTest {
         document = DocumentService.getTextDocument("");
         System.out.println("---------------------------------------------\n");
         filepath = ".\\src\\main\\resources\\Test1.txt";
-        filepath2 = ".\\src\\main\\resources\\Test2.txt";
+        doc = DocumentService.getTextDocument(".\\src\\main\\resources\\Test2.txt");
     }
 
     @Test
@@ -49,32 +45,19 @@ public class DocumentServiceTest {
         DocumentService.parseDocument(document);
     }
 
-    @Before
-    public void setUp() throws IOException {
-        doc = DocumentService.getTextDocument(filepath2);
-    }
 
     @Test
     public void searchForUniqueWordsInIncorrectFile() {
-        DocumentService.findUniqueWord(doc);
+        findUniqueWord(doc);
     }
 
-    @Before
-    public void setUpNext() throws IOException {
-        System.out.println("-------------setUpNext info------------------");
+
+    @Test(expected = NullPointerException.class)
+    public void searchForUniqueWordsInEmptyFile() throws IOException {
         doc = DocumentService.getTextDocument(filepath);
-        System.out.println("---------------------------------------------");
+        findUniqueWord(doc);
     }
 
-    @Test
-    public void searchForUniqueWordsInEmptyFile() {
-        DocumentService.findUniqueWord(doc);
-    }
-
-    @After
-    public void resetNext() throws IOException {
-        doc = DocumentService.getTextDocument(filepath2);
-    }
 
     @Test
     public void shouldReturnUniqueSentenceMessage() {
@@ -100,3 +83,4 @@ public class DocumentServiceTest {
         assertNull(sentence);
     }
 }
+

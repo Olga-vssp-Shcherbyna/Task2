@@ -4,7 +4,6 @@ import com.Fay.TextComponents.Word;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static com.Fay.Services.WordService.equalsWithRegExp;
 import static org.junit.Assert.assertFalse;
 
 public class WordServiceTest {
@@ -19,8 +18,9 @@ public class WordServiceTest {
 
     @Test
     public void shouldReturnFalseWhenWordsDifferent() {
-        boolean result = equalsWithRegExp(w1, w2);
+        boolean result = w1.equals(w2);
         assertFalse(result);
     }
 
 }
+
