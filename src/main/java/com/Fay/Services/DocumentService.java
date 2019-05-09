@@ -49,16 +49,15 @@ class DocumentService {
         List<Word> words = new ArrayList<>();
         Sentence firstSentence = getFirstNotEmptySentence(document);
         int k = firstSentenceIndex(document, firstSentence) + 1;
-        try {
+        if (firstSentence != null) {
             for (int i = k; i < document.getSentences().length; i++) {
-                assert firstSentence != null;
                 if (!compareSentences(firstSentence, document.getSentences()[i]).isEmpty()) {
                     words.addAll(compareSentences(firstSentence, document.getSentences()[i]));
                 }
             }
             System.out.printf("Words in first sentence:\n%s\n", wordArrayToString(Arrays.asList(firstSentence.getWords())));
             printUniqueWords(words, firstSentence);
-        } catch (NullPointerException e) {
+        } else {
             System.out.println("All sentences are empty");
         }
     }

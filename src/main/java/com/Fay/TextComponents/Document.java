@@ -27,3 +27,4 @@ public class Document extends Text {
         this.sentences = sentences;
     }
 }
+
