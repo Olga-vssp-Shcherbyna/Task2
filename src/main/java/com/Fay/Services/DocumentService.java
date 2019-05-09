@@ -78,13 +78,13 @@ class DocumentService {
 
     static Sentence getFirstNotEmptySentence(Document document) {
         Pattern pattern = Pattern.compile("[\\s\\p{Punct}\\d*\\s]*");
-        try {
+        if (document.getSentences()!=null) {
             for (Sentence s : document.getSentences()) {
                 Matcher m = pattern.matcher(s.getData());
                 if (!(m.matches()))
                     return s;
             }
-        } catch (NullPointerException e) {
+        } else {
             System.out.println("Empty document data");
         }
         return null;
